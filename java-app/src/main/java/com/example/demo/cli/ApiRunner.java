@@ -2,6 +2,9 @@ package com.example.demo.cli;
 
 import com.example.demo.client.CardClient;
 import com.example.demo.entity.Card;
+import com.example.demo.entity.CardRepresentation;
+import com.example.demo.entity.Page;
+import com.example.demo.processing.CardProcessor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,11 +19,12 @@ public class ApiRunner implements CommandLineRunner {
     @Autowired
     CardClient cardClient;
 
+    @Autowired
+    CardProcessor cardProcessor;
+
     @Override
     public void run(String... args) {
-        log.info("Fetching cards");
-        List<Card> cards = cardClient.getCards(1);
-        log.info(String.format("Found %d cards", cards.size()));
-        cards.forEach(card -> log.info(card.toString()));
+        List<CardRepresentation> cards = cardProcessor.process(new Page(1));
+        cards.forEach(card -> log.info(card.getRepresentation()));
     }
 }
