@@ -32,9 +32,6 @@ public class CardProcessor implements ItemProcessor<Page, List<CardRepresentatio
 
         CardRepresentation cardRepresentation = new CardRepresentation();
         cardRepresentation.setRepresentation(firstName + "|" + cardId);
-
-        log.info("Converting (" + card + ") into (" + cardRepresentation + ")");
-
         return cardRepresentation;
     }
 }
